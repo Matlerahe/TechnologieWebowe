@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Zaloguj się do panelu administratora</h2>
+        <form id="login-form">
+            <label for="username">Login (Aktualnie admin):</label>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="password">Hasło (Aktualnie haslo123):</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <input type="submit" value="Login">
+        </form>
+        <p id="error-message" style="color: red;"></p>
+    </div>
+
+    <script>
+        const correctUsername = "admin";
+        const correctPassword = "haslo123";
+
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === correctUsername && password === correctPassword) {
+                localStorage.setItem("loggedIn", "true");
+                window.location.href = "admin.html";
+            } else {
+                document.getElementById("error-message").innerText = "Invalid username or password.";
+            }
+        });
+    </script>
+</body>
+</html>

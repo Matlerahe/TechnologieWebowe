@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koszyk - Sklep</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Przykladowy sklep</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Strona glowna</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="cart">
+            <h2>Twój koszyk</h2>
+            <div id="cart-items-container">
+                <ul id="cart-items">
+                </ul>
+                <div id="cart-summary">
+                    <p>Całkowita kwota: <span id="total-price">0.00</span> PLN</p>
+                </div>
+                <button id="checkout-btn">Przejdź do kasy</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mateusz Lerka D1 155664.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartListEl = document.getElementById('cart-items');
+            const totalPriceEl = document.getElementById('total-price');
+            let total = 0;
+
+            cartItems.forEach((item, index) => {
+                total += item.price;
+
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - ${item.price.toFixed(2)} PLN`;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Usuń';
+                removeButton.classList.add('remove-from-cart');
+                
+                removeButton.addEventListener('click', () => {
+                    removeFromCart(index);
+                });
+
+
+                li.appendChild(removeButton);
+                cartListEl.appendChild(li);
+            });
+
+
+            totalPriceEl.textContent = total.toFixed(2);
+        });
+
+
+        function removeFromCart(index) {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            location.reload();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administratora</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Panel Administratora</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Strona główna</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="welcome-section">
+        <h2>Zostałeś zalogowany do panelu admina!</h2>
+        <button class="logout-btn" onclick="logout()">Wyloguj</button>
+    </div>
+
+    <main>
+        <section id="admin-panel">
+            <h2>Panel Administratora - Dodawanie produktów</h2>
+            <form id="product-form" method="POST" action="api/add_product.php" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="product-name">Nazwa Produktu:</label>
+                    <input type="text" id="product-name" name="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Cena (PLN):</label>
+                    <input type="number" id="product-price" name="product-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-image">Zdjęcie:</label>
+                    <input type="file" id="product-image" name="product-image" accept="image/*" required>
+                </div>
+                <button type="submit">Dodaj produkt</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        if (!localStorage.getItem("loggedIn")) {
+            window.location.href = "login.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            window.location.href = "login.html";
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2025 Mateusz Lerka D1 155664</p>
+    </footer>
+</body>
+</html>
